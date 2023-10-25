@@ -244,10 +244,13 @@ free(hostRef);
 free(gpuRef);
 return(0);
 ```
-
 ## Output:
 ![output](./a.png)
+
+
 ![output](./b.png)
+
+
 ![output](./c.png)
 
 summation vs GPU-based vector summation
@@ -255,11 +258,8 @@ GPUs: “SIMD” - “Single-Instruction, Multiple-Data”. A GPU can operate on
 Whereas a single CPU core can be described as “SISD” - “Single-Instruction, Single-Data”. With multiple CPU cores, we get “MIMD” -- “Multiple-Instruction, Multiple-Data”, where each instruction sequence can be doing entirely different things to different data. Or in other words, multithreading.
 So even with all their massive parallelism, GPUs are still effectively single-threaded.
 Instead of looping over an expression of 256 array elements, we create huge registers that are a gang of 256 floating point elements. a CPU would have 256 threads progressing at different rates on each array element. A GPU would force all 256 items to be on the same instruction because it's working on these huge registers. This is a reason why we can't run all CPU algorithms efficiently on a GPU.
-
 CPU : for each i in [0,256]: c[i] = a[i] * b[i] . Here, Each thread progresses at its own rate.
-
 GPU : float32_times256 c,b,a; c = b * a; where c=b*a is one instruction, with three huge operands.
 ## Result:
-(i) The block.x is set as 1023 & 1024 and the elapsed time obtained on Host and GPU is compared.
-
-(ii) The number of threads is set as 256 and the elapsed time on Host and GPU is obtained.
+The block.x is set as 1023 & 1024 and the elapsed time obtained on Host and GPU is compared.
+The number of threads is set as 256 and the elapsed time on Host and GPU is obtained.
